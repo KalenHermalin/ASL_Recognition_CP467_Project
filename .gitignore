@@ -1,0 +1,19 @@
+# Environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# Data (large / personal) - never commit
+data/raw/*
+data/webcam/*
+data/landmarks/*
+!data/raw/.gitkeep
+!data/webcam/.gitkeep
+!data/landmarks/.gitkeep
+
+# Credentials
+kaggle.json
+.env
