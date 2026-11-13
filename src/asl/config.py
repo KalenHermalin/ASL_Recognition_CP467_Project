@@ -28,7 +28,11 @@ PREPROCESS_VARIANTS = list(VARIANTS)
 
 N_LANDMARKS = 21
 LANDMARK_COLS = [f"{axis}{i}" for i in range(N_LANDMARKS) for axis in "xyz"]
-
+MEDIAPIPE_MODEL = MODEL_PATH = ROOT / "models" / "hand_landmarker.task"
+MODEL_URL = (
+    "https://storage.googleapis.com/mediapipe-models/hand_landmarker/"
+    "hand_landmarker/float16/latest/hand_landmarker.task"
+)
 # Landmark CSV schema (raw, un-normalized - normalization is a later stage)
 CSV_COLUMNS = [
     "image_path", "label", "variant", "detected",
