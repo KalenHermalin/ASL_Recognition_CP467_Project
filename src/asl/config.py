@@ -10,6 +10,7 @@ RESULTS_DIR = ROOT / "results"
 
 KAGGLE_DATASET = "grassknoted/asl-alphabet"
 
+DATASET_DIR = RAW_DIR / "datasets/grassknoted/asl-alphabet/versions/1/asl_alphabet_train/asl_alphabet_train"
 # 24 static letters (J and Z need motion)
 LETTERS = list("ABCDEFGHIKLMNOPQRSTUVWXY")
 
