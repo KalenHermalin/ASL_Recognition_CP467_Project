@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms
+gamma_2_5,normal,1000,A B C D E,200,0.15,39.914,40.065

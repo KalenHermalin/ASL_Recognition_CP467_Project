@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms
+clahe_2,dark_mild,1000,A B C D E,200,0.711,31.938,32.649
