@@ -23,9 +23,24 @@ VARIANTS = {
     "gamma_2_5":   {"type": "gamma",    "params": {"gamma": 2.5}},
     "clahe_2":     {"type": "clahe",    "params": {"clip_limit": 2.0, "tile_grid": 8}},
     "clahe_4":     {"type": "clahe",    "params": {"clip_limit": 4.0, "tile_grid": 8}},
+    # Kaggle images are 200x200: 128 = downscale control, 300/400 = upscale
+    "resize_128":  {"type": "resize",   "params": {"width": 128}},
+    "resize_300":  {"type": "resize",   "params": {"width": 300}},
+    "resize_400":  {"type": "resize",   "params": {"width": 400}},
 }
 
 PREPROCESS_VARIANTS = list(VARIANTS)
+
+# Synthetic lighting conditions (see asl/lighting.py). "normal" = images untouched.
+# brightness = pixel multiplier; noise_sigma = Gaussian noise std (0-255 scale).
+LIGHTING_LEVELS = {
+    "normal":        None,
+    "dark_mild":     {"brightness": 0.50, "noise_sigma": 3.0},
+    "dark_moderate": {"brightness": 0.25, "noise_sigma": 5.0},
+    "dark_severe":   {"brightness": 0.10, "noise_sigma": 6.0},
+    # control: same dimming as dark_moderate but NO noise, to separate dimming from noise
+    "dark_moderate_nonoise": {"brightness": 0.25, "noise_sigma": 0.0},
+}
 
 N_LANDMARKS = 21
 LANDMARK_COLS = [f"{axis}{i}" for i in range(N_LANDMARKS) for axis in "xyz"]
@@ -36,6 +51,6 @@ MODEL_URL = (
 )
 # Landmark CSV schema (raw, un-normalized - normalization is a later stage)
 CSV_COLUMNS = [
-    "image_path", "label", "variant", "detected",
+    "image_path", "label", "variant", "lighting", "detected",
     "handedness", "handedness_score",
 ] + LANDMARK_COLS

@@ -21,3 +21,6 @@ results/figures/*.png
 # Credentials
 kaggle.json
 .env
+
+# Saved subset runs (A-E, 200/letter) kept out of git
+data/landmarks_*/

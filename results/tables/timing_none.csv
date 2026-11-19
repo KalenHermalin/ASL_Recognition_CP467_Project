@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms
+none,normal,72000,A B C D E F G H I K L M N O P Q R S T U V W X Y,,0.002,26.156,26.158

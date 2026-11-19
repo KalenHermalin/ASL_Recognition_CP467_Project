@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms
+resize_128,dark_severe,1000,A B C D E,200,0.666,22.346,23.012

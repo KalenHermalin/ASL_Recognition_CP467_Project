@@ -61,12 +61,13 @@ def apply_variant(img: np.ndarray, name: str) -> np.ndarray:
         raise ValueError(f"Unknown variant: {name}")
 
     cfg = VARIANTS[name]
-    kind = cfg["type"]        # "gamma", "clahe", "filter" or "none"
+    kind = cfg["type"]        # "gamma", "clahe", "filter", "resize" or "none"
     params = cfg["params"]    # e.g. {"gamma": 1.5}
     match kind:
         case "gamma": return gamma_correction(img, **params)
         case "clahe": return CLAHE(img, **params)
         case "filter": return filter_blur(img, **params)
+        case "resize": return resize(img, **params)
         case "none": return img
         case _:
             raise ValueError("name is not a valid variant")

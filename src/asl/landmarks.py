@@ -87,12 +87,14 @@ def draw_landmarks(img_bgr: np.ndarray, result: LandmarkResult) -> np.ndarray:
                     cv2.FONT_HERSHEY_SIMPLEX, max(0.5, thickness / 3), (0, 255, 255), thickness)
     return out
 
-def result_to_row(result: LandmarkResult, image_path: str, label: str, variant: str) -> dict:
+def result_to_row(result: LandmarkResult, image_path: str, label: str, variant: str,
+                  lighting: str = "normal") -> dict:
     """Flatten into one CSV row matching CSV_COLUMNS in config.py."""
     row = {
         "image_path": image_path,
         "label": label,
         "variant": variant,
+        "lighting": lighting,
         "detected": int(result.detected),
         "handedness": result.handedness,
         "handedness_score": result.handedness_score,

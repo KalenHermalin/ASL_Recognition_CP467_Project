@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms
+median_3,normal,1000,A B C D E,200,0.057,38.295,38.353
