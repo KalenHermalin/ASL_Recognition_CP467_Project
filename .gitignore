@@ -24,3 +24,4 @@ kaggle.json
 
 # Saved subset runs (A-E, 200/letter) kept out of git
 data/landmarks_*/
+*.egg-info/
