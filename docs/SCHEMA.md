@@ -47,7 +47,15 @@ Landmarks are RAW MediaPipe output - normalization happens in the next stage.
   - `python scripts/check_handedness.py --csv data/landmarks/landmarks_webcam_none.csv` summarizes
     the labels per top-level webcam folder (name them like `lucas_right/`, `lucas_left/`) and says
     whether a group's majority label matches Kaggle's (Right, so no mirroring) or differs (mirror).
-    Status: calibration still to do, it needs the webcam clips.
+    Status: calibrated on Lucas's 48 webcam frames (24 normal light in `lucas/`, 24 dim in
+    `lucas_dim/`, one frame per letter, all signed with his LEFT hand). MediaPipe labelled them
+    100% Left (normal) and 95.8% Left (dim), versus Kaggle's ~95% Right, so the check says
+    "mirror". **Rule: for webcam data from a left-handed signer, flip x (`x -> 1 - x`) on the
+    raw landmarks before normalization (or mirror the frame before detection in the live demo).**
+    A right-handed webcam signer needs no flip. The label here follows the real hand, which is
+    why Lucas's own belief that his webcam is mirrored does not change the rule: decide by the
+    label, not by assumptions about the capture software. Only 48 frames, so re-run
+    `check_handedness.py` if more people or a different camera are added.
 - **Class balance after dropping misses.** Detection varies by letter (full run, gamma_2_5: most
   letters 82-98%, but M = 58% and N = 47%; `none`: M = 53%, N = 42%). So after dropping
   `detected = 0` rows there are far fewer M and N samples than other letters (about 1,400-1,750
