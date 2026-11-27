@@ -3,7 +3,7 @@
 #   python3 -m venv .venv && source .venv/bin/activate
 #   pip install -r requirements.txt
 
-mediapipe>=1.2.3   # Hands via the mp.solutions.hands API
+mediapipe>=1.2.3   # Hand landmarks via the Tasks HandLandmarker API
 opencv-python>=4.8
 numpy>=1.24
 pandas>=2.0

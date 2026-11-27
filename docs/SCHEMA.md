@@ -4,6 +4,15 @@ One CSV per preprocessing variant and lighting condition in `data/landmarks/`:
 `landmarks_<variant>.csv` for normal lighting (e.g. `landmarks_clahe_2.csv`) and
 `landmarks_<variant>_<lighting>.csv` for synthetic dark runs (e.g. `landmarks_clahe_2_dark_moderate.csv`).
 Generate them with `python scripts/extract_landmarks.py` (see `--lighting`).
+
+Webcam frames (`data/webcam/<person>/<letter>/`) go through the same code with `--source webcam`
+and are written as `landmarks_webcam_<variant>[_<lighting>].csv`. Their `image_path` is relative to
+`data/webcam/` (for example `lucas_right/A/img1.jpg`) and `label` is the letter folder name.
+
+Dark runs made with `--only-split test` contain only the images that `results/splits/split.csv`
+marks as `test` (classifiers train on normal light and are tested on dark), so they have far fewer
+rows than the normal-light CSVs, and their `detection_*` / `timing_*` tables in `results/tables/`
+cover test images only (`subset` column in the timing table).
 Landmarks are RAW MediaPipe output - normalization happens in the next stage.
 
 | column | meaning |
@@ -35,6 +44,10 @@ Landmarks are RAW MediaPipe output - normalization happens in the next stage.
   - For webcam / other data, the mirroring rule has to be calibrated: record a known right and a
     known left hand through the same capture path (flipped or not) and see which label each gets.
     Then mirror so that every hand ends up matching the Kaggle hand's orientation.
+  - `python scripts/check_handedness.py --csv data/landmarks/landmarks_webcam_none.csv` summarizes
+    the labels per top-level webcam folder (name them like `lucas_right/`, `lucas_left/`) and says
+    whether a group's majority label matches Kaggle's (Right, so no mirroring) or differs (mirror).
+    Status: calibration still to do, it needs the webcam clips.
 - **Class balance after dropping misses.** Detection varies by letter (full run, gamma_2_5: most
   letters 82-98%, but M = 58% and N = 47%; `none`: M = 53%, N = 42%). So after dropping
   `detected = 0` rows there are far fewer M and N samples than other letters (about 1,400-1,750
@@ -43,6 +56,9 @@ Landmarks are RAW MediaPipe output - normalization happens in the next stage.
 - **Missed detections.** Rows with `detected = 0` are kept so the detection rate can be reported.
   Drop them before training (the proposal says to report the rate and train on detections only).
 - **Splits.** The Kaggle images are numbered frames from continuous capture, so neighbouring
-  frames (e.g. `A100`, `A101`) are near-duplicates. A random split will leak between train and
-  test. The dataset has no person IDs, so the group needs to choose another scheme, such as
-  splitting by blocks of consecutive file numbers. Open question for Mustafa.
+  frames (e.g. `A100`, `A101`) are near-duplicates and a random split would leak. The group uses one
+  shared file, `results/splits/split.csv` (made by `scripts/make_split.py`): per letter, blocks of 150
+  consecutive frame numbers, about 25% of the blocks go to test, and train frames within 15 frames of
+  a test block are marked `gap` and excluded. On the full dataset that is 51,946 train / 17,395 test /
+  2,659 gap images, and the closest train/test frames are 16 apart. Classifiers and the classical
+  baseline must all use this file. The webcam set has no split file and is used as a test set.

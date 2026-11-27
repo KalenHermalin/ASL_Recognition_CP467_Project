@@ -12,6 +12,28 @@ python scripts/download_dataset.py     # one-time, needs a Kaggle API token
 python scripts/extract_landmarks.py    # caches landmarks to data/landmarks/
 ```
 
+## Landmark extraction (Kalen)
+```bash
+python scripts/extract_landmarks.py --variants none gamma_2_5            # full Kaggle run (72,000 images)
+python scripts/extract_landmarks.py --letters A B C D E --limit 200      # quick subset (every Nth image)
+python scripts/extract_landmarks.py --variants none gamma_2_5 \
+       --lighting dark_mild dark_moderate --only-split test              # dark runs, test images only
+python scripts/extract_landmarks.py --source webcam --variants none      # data/webcam/<person>/<letter>/
+python scripts/check_handedness.py --csv data/landmarks/landmarks_webcam_none.csv
+```
+- Variants and lighting levels are defined in `src/asl/config.py` (`VARIANTS`, `LIGHTING_LEVELS`);
+  `src/asl/lighting.py` makes the synthetic dark images (seeded per image, so every variant sees the same one).
+- Output: `data/landmarks/landmarks_<variant>[_<lighting>].csv` (columns in `docs/SCHEMA.md`) plus
+  `results/tables/detection_<tag>.csv` and `timing_<tag>.csv`. Existing CSVs are skipped unless `--overwrite`.
+- `--only-split test` reads `results/splits/split.csv` (make it first with `scripts/make_split.py`) and
+  only processes the test images. Use it for dark runs: classifiers train on normal light only, so
+  dark CSVs need just the test images (about 8 minutes per run instead of 30). It is refused for normal light.
+- Webcam CSVs are named `landmarks_webcam_<variant>.csv`; folder names under `data/webcam/` are the
+  groups for the handedness check (for example `lucas_right/`, `lucas_left/`).
+- Report figures: `python scripts/make_report_figures.py` (tables, heatmap, per-letter chart) and
+  `python scripts/make_qualitative_figures.py` (sample outputs). Both write to `results/report/` and need
+  the A-E subset runs (`data/landmarks_subset_A-E/`, `results/tables_subset_A-E/`), which are kept local.
+
 ## Classifiers + evaluation (Mustafa)
 ```bash
 python scripts/make_split.py             # ONE shared split -> results/splits/split.csv (baseline must use it too)

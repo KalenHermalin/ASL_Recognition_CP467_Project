@@ -1,4 +1,6 @@
 """Qualitative figures for the report: where preprocessing helps and where it fails.
+    - Author: Kalen Hermalin
+    - ID: 169048742
 
 Re-creates the exact image each run saw (same darkening seed, same variant), and draws the
 landmarks stored in the A-E per-image CSVs, so nothing here re-runs MediaPipe.

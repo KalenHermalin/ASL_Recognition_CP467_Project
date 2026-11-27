@@ -1,4 +1,6 @@
 """Build report tables and figures from the saved detection/timing tables.
+    - Author: Kalen Hermalin
+    - ID: 169048742
 
 Reads  results/tables_subset_A-E/  (A-E grid: 10 variants x 5 lighting levels)
        results/tables/             (full 24-letter runs: none, gamma_2_5)

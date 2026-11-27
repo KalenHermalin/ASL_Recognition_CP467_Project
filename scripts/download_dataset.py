@@ -8,6 +8,9 @@ then save kaggle.json to ~/.kaggle/kaggle.json (or set KAGGLE_USERNAME / KAGGLE_
 
 Run once per machine (after `pip install -r requirements.txt`):
     python scripts/download_dataset.py
+
+    - Author: Kalen Hermalin
+    - ID: 169048742
 """
 import os
 import sys

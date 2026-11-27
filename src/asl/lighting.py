@@ -1,4 +1,6 @@
 """Synthetic lighting conditions, used to test preprocessing in low light.
+    - Author: Kalen Hermalin
+    - ID: 169048742
 
 This simulates what a dim camera would give MediaPipe, so it is applied to the raw
 image BEFORE any preprocessing variant. It is an approximation of real low light
