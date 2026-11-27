@@ -1,0 +1,2 @@
+variant,lighting,n_images,letters,limit_per_letter,preprocess_ms,mediapipe_ms,total_ms,subset
+none,dark_moderate,17395,A B C D E F G H I K L M N O P Q R S T U V W X Y,,0.002,24.417,24.418,test
